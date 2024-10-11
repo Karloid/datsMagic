@@ -1,3 +1,5 @@
+state.json
+responses
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
