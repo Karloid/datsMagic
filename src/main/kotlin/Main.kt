@@ -1,5 +1,3 @@
-package com.krld
-
 import AnomalyDto
 import BASE_URL
 import BountyDto
@@ -24,10 +22,17 @@ class ActionPlanned(var transports: List<TransportCommandDto> = emptyList()) {
 }
 
 lateinit var state: State
-val ui = Ui()
+lateinit var ui: Ui
 
 @Volatile
 var apiToken = ""
+
+
+@Volatile
+var SAVE_RESPONSES = false
+
+@Volatile
+var DRAW_UI = false
 
 val logicThread = Executors.newSingleThreadScheduledExecutor()
 
@@ -57,9 +62,16 @@ var currentWorldState: WorldStateDto? = null
 
 fun main(args: Array<String>) {
     logicThread.execute {
-        apiToken = args.first()
-        BASE_URL = args[1]
-        realMain()
+        try {
+            apiToken = args.first()
+            BASE_URL = args[1]
+            DRAW_UI = args.contains("draw_ui")
+            SAVE_RESPONSES = args.contains("save_responses")
+            realMain()
+        } catch (e: Throwable) {
+            e.printStackTrace()
+            logicThread.shutdown()
+        }
     }
 
     logicThread.awaitTermination(Int.MAX_VALUE.toLong(), TimeUnit.DAYS)
@@ -68,7 +80,6 @@ fun main(args: Array<String>) {
 private fun realMain() {
     println("Hello World!")
     drawUi()
-
 
     loadState()
 
@@ -262,6 +273,10 @@ fun loadState() {
 }
 
 fun drawUi() {
+    if (!DRAW_UI) {
+        return
+    }
+    ui = Ui()
     ui.setup()
     loop()
 }

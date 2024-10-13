@@ -1,7 +1,5 @@
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.krld.apiToken
-import com.krld.log
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import java.io.File
@@ -52,7 +50,6 @@ object Api {
 
         val path = "/rounds/magcarp"
 
-
         if (REPEAT_MODE) {
             // find files with this path in name in folder response and answer with it
             val files = File("responses").listFiles()
@@ -90,6 +87,10 @@ object Api {
 
     private fun saveResponse(path: String, body: String?) {
         body ?: return
+
+        if (!SAVE_RESPONSES) {
+            return
+        }
 
         val fileName = System.currentTimeMillis().toString() + "-" + path.replace("/", "_") + ".txt"
         val file = File("responses/$fileName")
