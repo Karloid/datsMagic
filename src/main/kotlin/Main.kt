@@ -267,7 +267,7 @@ fun drawUi() {
 }
 
 fun loop() {
-    val timer = Timer(5000) { e ->
+    val timer = Timer(32) { e ->
         // Code to execute after delay
         if (currentWorldState == null) {
             return@Timer
