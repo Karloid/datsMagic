@@ -43,9 +43,11 @@ class Point2DF {
         }*/
 
     override fun toString(): String {
-        return "x=" + x.f() +
-                ", y=" + y.f()
+        return "(" + x.f() +
+                ", " + y.f() +")"
     }
+
+
 
     constructor(x: Double, y: Double) {
         this.x = x
@@ -396,6 +398,24 @@ class Point2DF {
 
     fun toVec2NoRound():Point2D {
         return Point2D(x.toInt(), y.toInt())
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Point2DF
+
+        if (x != other.x) return false
+        if (y != other.y) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = x.hashCode()
+        result = 31 * result + y.hashCode()
+        return result
     }
 
 }

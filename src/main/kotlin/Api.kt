@@ -10,10 +10,10 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 
-val BASE_URL = "https://games-test.datsteam.dev"
-//val BASE_URL = "https://games.datsteam.dev"
+//val BASE_URL = "https://games-test.datsteam.dev"
+var BASE_URL = "https://games.datsteam.dev"
 
-val REPEAT_MODE = true
+val REPEAT_MODE = false
 
 val worldsResp = ArrayDeque<WorldStateDto>()
 
